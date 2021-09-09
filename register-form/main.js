@@ -25,8 +25,8 @@ const markEmptyInputs = function (registrationData) {
   emptyKeys.forEach((array) => {
     inputElements.namedItem(`${array[0]}`).classList.add("input--invalid");
   });
-  const isInputEmpty = values.includes("");
-  if (isInputEmpty) alert("fill empty fields");
+  // const isInputEmpty = values.includes("");
+  // if (isInputEmpty) alert("fill empty fields");
   // if (!isFormValid) alert("fill empty fields");
 
   console.log(registrationData);
@@ -52,6 +52,9 @@ form.addEventListener("submit", (event) => {
   markEmptyInputs(registrationData);
   const isFormCorrect = areInputsCorrect(inputElements);
   console.log(isFormCorrect);
+  if (!isFormCorrect)
+    alert("form is incorrect. Fill all fields or correct mistakes");
+  if (isFormCorrect) alert(`form is correct`);
 });
 
 form.addEventListener("input", (event) => {
