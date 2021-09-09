@@ -8,26 +8,105 @@
     <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
-    <form>
-      <label for="name">name</label>
-      <input type="text" name="name" id="name" />
+    <div class="form-container">
+      <form>
+        <div class="container">
+          <label for="name">name</label>
+          <input
+            class="input input-name"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="name"
+          />
+        </div>
 
-      <label for="surname">surname</label>
-      <input type="text" name="surname" id="surname" />
+        <div class="container">
+          <label for="surname">surname</label>
+          <input
+            class="input input-surname"
+            type="text"
+            name="surname"
+            id="surname"
+            placeholder="surname"
+          />
+        </div>
 
-      <label for="email">email</label>
-      <input type="text" name="email" id="email" />
+        <div class="container">
+          <label for="phone">phone</label>
+          <input
+            class="input input-phone"
+            type="text"
+            name="phone"
+            id="phone"
+            placeholder="phone"
+            list="phone"
+          />
+          <datalist id="phone">
+            <option>+48</option>
+            <option>+44</option>
+            <option>+42</option>
+            <option>+58</option>
+          </datalist>
+        </div>
 
-      <label for="city">city</label>
-      <input type="text" name="city" id="city" />
+        <div class="container">
+          <label for="email">email</label>
+          <input
+            class="input input-email"
+            type="text"
+            name="email"
+            id="email"
+            placeholder="email"
+          />
+        </div>
 
-      <label for="street">street</label>
-      <input type="text" name="street" id="street" />
+        <div class="container">
+          <label for="city">city</label>
+          <input
+            class="input input-city"
+            type="text"
+            name="city"
+            id="city"
+            placeholder="city"
+          />
+        </div>
 
-      <label for="number">house number</label>
-      <input type="number" name="number" id="number" />
+        <div class="container">
+          <label for="street">street</label>
+          <input
+            class="input input-street"
+            type="text"
+            name="street"
+            id="street"
+            placeholder="street"
+          />
+        </div>
 
-      <!-- <label for="city">city</label>
+        <div class="container">
+          <label for="house-number">house number</label>
+          <input
+            class="input input-house-number"
+            type="text"
+            name="house"
+            id="house-number"
+            placeholder="house number"
+          />
+        </div>
+
+        <button type="submit">submit</button>
+
+        <!-- <input list="browsers" />
+        <datalist id="browsers">
+          <option value="Internet Explorer"></option>
+          <option value="Firefox"></option>
+          <option value="Chrome"></option>
+          <option value="Opera"></option>
+          <option value="Safari"></option>
+        </datalist> -->
+      </form>
+    </div>
+    <!-- <label for="city">city</label>
       <input type="text" name="city" id="city" />
 
       <label for="city">city</label>
@@ -36,8 +115,7 @@
       <label for="city">city</label>
       <input type="text" name="city" id="city" /> -->
 
-      <button type="submit">submit</button>
-    </form>
+    <script src="./main.js"></script>
   </body>
 </html>
 

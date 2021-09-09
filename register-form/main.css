@@ -1,3 +1,65 @@
-input {
-  height: 100px;
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  color: rgb(19, 19, 19);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.form-container {
+  border: 0.1rem solid rgba(37, 37, 37, 0.171);
+  border-radius: 0.5rem;
+  padding: 6rem;
+  margin: auto;
+  margin-top: 5rem;
+  width: 50%;
+}
+
+form {
+  width: 100%;
+}
+
+label {
+  text-align: right;
+  margin-right: 3rem;
+  font-size: 1.6rem;
+  display: inline-block;
+  width: 30%;
+}
+
+.input {
+  display: inline-block;
+  font-size: 1.4rem;
+  padding-left: 1rem;
+  height: 4rem;
+  width: 60%;
+  border-radius: 0.4rem;
+  border: 0.1rem solid rgba(180, 180, 180, 0.918);
+}
+.input:focus {
+  transition: 200ms;
+  transform: scale(1.01);
+  box-shadow: 0.2rem 0.2rem 0.9rem 0.1rem rgba(0, 0, 0, 0.151);
+  outline-width: 1rem;
+  outline-color: rgb(131, 185, 255);
+  background-color: rgba(131, 185, 255, 0.082);
+}
+.input--invalid {
+  background-color: rgba(255, 0, 0, 0.137);
+}
+.input--invalid:focus {
+  outline-width: 1rem;
+  outline-color: rgb(255, 148, 148);
+  background-color: rgba(255, 0, 0, 0.041);
+}
+
+::placeholder {
+  color: rgba(128, 128, 128, 0.473);
+}
+
+.container {
+  margin: 2rem 0rem;
 }
