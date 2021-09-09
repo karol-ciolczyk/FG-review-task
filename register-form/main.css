@@ -16,6 +16,7 @@ html {
   margin: auto;
   margin-top: 5rem;
   width: 50%;
+  box-shadow: 0.2rem 0.2rem 0.9rem 0.1rem rgba(0, 0, 0, 0.151);
 }
 
 form {

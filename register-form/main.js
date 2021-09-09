@@ -18,6 +18,16 @@ let registrationData = {
   email: "",
 };
 
+const getPostCodeData = async function (postCode) {
+  try {
+    const response = await fetch("http://kodpocztowy.intami.pl/api/32-566");
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    alert(`${error}`);
+  }
+};
+
 const markEmptyInputs = function (registrationData) {
   const values = Object.values(registrationData);
   const objetcEntr = Object.entries(registrationData);
@@ -92,9 +102,11 @@ form.addEventListener("input", (event) => {
     if (!isValid) event.target.classList.add("input--invalid");
     if (isValid) event.target.classList.remove("input--invalid");
   }
-  // if (event.target.value === "") {
-  //   event.target.classList.remove("input--invalid");
-  // }
+  if (targetName === "post") {
+    const isValid = /\d{2}-\d{3}/g.test(event.target.value);
+    console.log(isValid);
+    if (isValid) getPostCodeData(event.target.value);
+  }
 
   registrationData = {
     ...registrationData,
