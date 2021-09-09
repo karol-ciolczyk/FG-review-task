@@ -1,10 +1,8 @@
-console.log("sadfdsaf");
-
 const form = document.forms[0];
 const inputElements = document.forms[0].elements;
 const emailInput = document.querySelector(".input-email");
 
-const test = elements.namedItem("house");
+const test = inputElements.namedItem("house");
 // console.log(test);
 // console.log(form);
 // console.log(inputElements);
@@ -19,14 +17,13 @@ let registrationData = {
   city: "",
   email: "",
 };
-let isFormValid = false;
 
 const markEmptyInputs = function (registrationData) {
   const values = Object.values(registrationData);
   const objetcEntr = Object.entries(registrationData);
   const emptyKeys = objetcEntr.filter((array) => array[1] === "");
   emptyKeys.forEach((array) => {
-    elements.namedItem(`${array[0]}`).classList.add("input--invalid");
+    inputElements.namedItem(`${array[0]}`).classList.add("input--invalid");
   });
   const isInputEmpty = values.includes("");
   if (isInputEmpty) alert("fill empty fields");
@@ -35,20 +32,26 @@ const markEmptyInputs = function (registrationData) {
   console.log(registrationData);
 };
 
-const isInputsCorrect = function (elements) {
-  console.log(
-    Array.from(elements).forEach((element) =>
-      console.log(Array.from(element.classList).includes("input--invalid"))
-    )
-  );
+const areInputsCorrect = function (elements) {
+  let allClasses = [];
+  Array.from(elements).forEach((element) => {
+    const newClasses = Array.from(element.classList);
+    allClasses = [...allClasses, ...newClasses];
+  });
+
+  if (allClasses.includes("input--invalid")) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  isInputsCorrect(inputElements);
-
   markEmptyInputs(registrationData);
+  const isFormCorrect = areInputsCorrect(inputElements);
+  console.log(isFormCorrect);
 });
 
 form.addEventListener("input", (event) => {
@@ -95,15 +98,3 @@ form.addEventListener("input", (event) => {
     [event.target.name]: event.target.value,
   };
 });
-
-// \(?(\d{3})\)?[-\.\s]?(\d{3})[-\.\s]?(\d{4})
-
-// emailInput.addEventListener("input", (event) => {
-//   // console.log(event.target.value);
-
-//   const isValid = /(\w\.?)+@[\w\.-]+\.\w{2,}/g.test(event.target.value);
-//   console.log(isValid);
-
-//   if (!isValid) event.target.classList.add("input--invalid");
-//   if (isValid) event.target.classList.remove("input--invalid");
-// });
