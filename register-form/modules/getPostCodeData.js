@@ -1,8 +1,10 @@
 export const getPostCodeData = async function (postCode) {
   const citiesList = document.querySelector("#cities");
+  const optionElements = document.querySelectorAll("option");
 
-  // if(postCode.lengt)
-  // console.log(postCode);
+  if (optionElements.length > 0) {
+    optionElements.forEach((el) => el.remove());
+  }
 
   try {
     const response = await fetch(
