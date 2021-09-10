@@ -2,12 +2,22 @@ const form = document.forms[0];
 const inputElements = document.forms[0].elements;
 const emailInput = document.querySelector(".input-email");
 const post = document.querySelector("#post");
+const city = document.querySelector("#city");
+const street = document.querySelector("#street");
 
 post.addEventListener("change", (event) => {
   const addressDataArray = event.target.value.replace(" ", ",").split(",");
-  console.log(event.target.value.replace(" ", ",").split(","));
+  console.log(
+    event.target.value
+      .replace(" ", ",")
+      .split(",")
+      .map((el) => el.trim())
+  );
   event.target.value = addressDataArray[0];
   event.target.classList.remove("input--invalid");
+
+  city.value = addressDataArray[1];
+  if (addressDataArray[2]) street.value = addressDataArray[2];
 });
 
 const test = inputElements.namedItem("house");
@@ -117,7 +127,9 @@ form.addEventListener("input", (event) => {
     targetName === "city" ||
     targetName === "street"
   ) {
-    const isValid = /^[a-zA-Z\s]*$/g.test(event.target.value);
+    const isValid = /^[a-zA-Z-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]*$/g.test(
+      event.target.value
+    );
     if (!isValid) event.target.classList.add("input--invalid");
     if (isValid) event.target.classList.remove("input--invalid");
   }
