@@ -5,14 +5,11 @@ export const validateInputData = function (event) {
   const targetName = event.target.name;
 
   if (targetName === "email") {
-    console.log("email");
     const isValid = /(\w\.?)+@[\w\.-]+\.\w{2,}/g.test(event.target.value);
     if (!isValid) event.target.classList.add("input--invalid");
     if (isValid) event.target.classList.remove("input--invalid");
   }
   if (targetName === "phone") {
-    console.log("phone");
-
     const isValid = /\(?(\d{3})\)?[-\.\s]?(\d{3})[-\.\s]?(\d{3})/g.test(
       event.target.value
     );

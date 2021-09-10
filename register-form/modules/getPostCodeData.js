@@ -11,7 +11,6 @@ export const getPostCodeData = async function (postCode) {
       `http://kodpocztowy.intami.pl/api/${postCode}`
     );
     const data = await response.json();
-    console.log(data);
 
     data.forEach((locationDataObject) => {
       const option = document.createElement("option");
@@ -19,7 +18,6 @@ export const getPostCodeData = async function (postCode) {
         ? `${locationDataObject.kod} ${locationDataObject.miejscowosc}, ${locationDataObject.ulica}`
         : `${locationDataObject.kod} ${locationDataObject.miejscowosc}`;
 
-      console.log(option);
       citiesList.append(option);
     });
   } catch (error) {
