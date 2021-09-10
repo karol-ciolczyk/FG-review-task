@@ -29,6 +29,16 @@ form.addEventListener("submit", (event) => {
     alert("form is incorrect. Fill all fields or correct mistakes");
   if (isFormCorrect) {
     form.reset();
+    registrationData = {
+      name: "",
+      surname: "",
+      phone: "",
+      street: "",
+      house: "",
+      city: "",
+      email: "",
+      post: "",
+    };
     alert(`form is correct`);
   }
 });
