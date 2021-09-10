@@ -1,30 +1,12 @@
+import { getPostCodeData } from "./modules/getPostCodeData.js";
+
+// const test = inputElements.namedItem("house");
 const form = document.forms[0];
 const inputElements = document.forms[0].elements;
 const emailInput = document.querySelector(".input-email");
 const post = document.querySelector("#post");
 const city = document.querySelector("#city");
 const street = document.querySelector("#street");
-
-post.addEventListener("change", (event) => {
-  const addressDataArray = event.target.value.replace(" ", ",").split(",");
-  console.log(
-    event.target.value
-      .replace(" ", ",")
-      .split(",")
-      .map((el) => el.trim())
-  );
-  event.target.value = addressDataArray[0];
-  event.target.classList.remove("input--invalid");
-
-  city.value = addressDataArray[1];
-  if (addressDataArray[2]) street.value = addressDataArray[2];
-});
-
-const test = inputElements.namedItem("house");
-// console.log(test);
-// console.log(form);
-// console.log(inputElements);
-// console.log(emailInput);
 
 let registrationData = {
   name: "",
@@ -36,32 +18,32 @@ let registrationData = {
   email: "",
 };
 
-const getPostCodeData = async function (postCode) {
-  const citiesList = document.querySelector("#cities");
+// const getPostCodeData = async function (postCode) {
+//   const citiesList = document.querySelector("#cities");
 
-  // if(postCode.lengt)
-  // console.log(postCode);
+//   // if(postCode.lengt)
+//   // console.log(postCode);
 
-  try {
-    const response = await fetch(
-      `http://kodpocztowy.intami.pl/api/${postCode}`
-    );
-    const data = await response.json();
-    console.log(data);
+//   try {
+//     const response = await fetch(
+//       `http://kodpocztowy.intami.pl/api/${postCode}`
+//     );
+//     const data = await response.json();
+//     console.log(data);
 
-    data.forEach((locationDataObject) => {
-      const option = document.createElement("option");
-      option.value = locationDataObject.ulica
-        ? `${locationDataObject.kod} ${locationDataObject.miejscowosc}, ${locationDataObject.ulica}`
-        : `${locationDataObject.kod} ${locationDataObject.miejscowosc}`;
+//     data.forEach((locationDataObject) => {
+//       const option = document.createElement("option");
+//       option.value = locationDataObject.ulica
+//         ? `${locationDataObject.kod} ${locationDataObject.miejscowosc}, ${locationDataObject.ulica}`
+//         : `${locationDataObject.kod} ${locationDataObject.miejscowosc}`;
 
-      console.log(option);
-      citiesList.append(option);
-    });
-  } catch (error) {
-    alert(`${error}`);
-  }
-};
+//       console.log(option);
+//       citiesList.append(option);
+//     });
+//   } catch (error) {
+//     alert(`${error}`);
+//   }
+// };
 
 const markEmptyInputs = function (registrationData) {
   const values = Object.values(registrationData);
@@ -91,19 +73,31 @@ const areInputsCorrect = function (elements) {
   }
 };
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+const autoFill = function (event) {
+  const inputValue = event.target.value;
+  const input = event.target;
+  const addressDataArray = inputValue
+    .replace(" ", ",")
+    .split(",")
+    .map((el) => el.trim());
+  event.target.value = addressDataArray[0];
+  input.classList.remove("input--invalid");
 
-  markEmptyInputs(registrationData);
-  const isFormCorrect = areInputsCorrect(inputElements);
-  console.log(isFormCorrect);
-  if (!isFormCorrect)
-    alert("form is incorrect. Fill all fields or correct mistakes");
-  if (isFormCorrect) alert(`form is correct`);
-});
+  city.value = addressDataArray[1];
+  if (addressDataArray[2]) {
+    street.value = addressDataArray[2];
+    street.dispatchEvent(new Event("change"));
+  } else {
+    street.value = "";
+  }
+  registrationData = {
+    ...registrationData,
+    city: city.value,
+    street: street.value,
+  };
+};
 
-form.addEventListener("input", (event) => {
-  event.preventDefault();
+const validateInputData = function (event) {
   const targetName = event.target.name;
 
   if (targetName === "email") {
@@ -155,4 +149,26 @@ form.addEventListener("input", (event) => {
     ...registrationData,
     [event.target.name]: event.target.value,
   };
+};
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  markEmptyInputs(registrationData);
+  const isFormCorrect = areInputsCorrect(inputElements);
+  console.log(isFormCorrect);
+  if (!isFormCorrect)
+    alert("form is incorrect. Fill all fields or correct mistakes");
+  if (isFormCorrect) alert(`form is correct`);
+});
+
+form.addEventListener("input", (event) => {
+  event.preventDefault();
+
+  validateInputData(event);
+  const targetName = event.target.name;
+});
+
+post.addEventListener("change", (event) => {
+  autoFill(event);
 });
