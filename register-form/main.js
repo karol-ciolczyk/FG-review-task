@@ -1,6 +1,14 @@
 const form = document.forms[0];
 const inputElements = document.forms[0].elements;
 const emailInput = document.querySelector(".input-email");
+const post = document.querySelector("#post");
+
+post.addEventListener("change", (event) => {
+  const addressDataArray = event.target.value.replace(" ", ",").split(",");
+  console.log(event.target.value.replace(" ", ",").split(","));
+  event.target.value = addressDataArray[0];
+  event.target.classList.remove("input--invalid");
+});
 
 const test = inputElements.namedItem("house");
 // console.log(test);
@@ -19,10 +27,27 @@ let registrationData = {
 };
 
 const getPostCodeData = async function (postCode) {
+  const citiesList = document.querySelector("#cities");
+
+  // if(postCode.lengt)
+  // console.log(postCode);
+
   try {
-    const response = await fetch("http://kodpocztowy.intami.pl/api/32-566");
+    const response = await fetch(
+      `http://kodpocztowy.intami.pl/api/${postCode}`
+    );
     const data = await response.json();
     console.log(data);
+
+    data.forEach((locationDataObject) => {
+      const option = document.createElement("option");
+      option.value = locationDataObject.ulica
+        ? `${locationDataObject.kod} ${locationDataObject.miejscowosc}, ${locationDataObject.ulica}`
+        : `${locationDataObject.kod} ${locationDataObject.miejscowosc}`;
+
+      console.log(option);
+      citiesList.append(option);
+    });
   } catch (error) {
     alert(`${error}`);
   }
@@ -92,7 +117,7 @@ form.addEventListener("input", (event) => {
     targetName === "city" ||
     targetName === "street"
   ) {
-    const isValid = /^[A-Za-z]+$/g.test(event.target.value);
+    const isValid = /^[a-zA-Z\s]*$/g.test(event.target.value);
     if (!isValid) event.target.classList.add("input--invalid");
     if (isValid) event.target.classList.remove("input--invalid");
   }
@@ -103,9 +128,15 @@ form.addEventListener("input", (event) => {
     if (isValid) event.target.classList.remove("input--invalid");
   }
   if (targetName === "post") {
-    const isValid = /\d{2}-\d{3}/g.test(event.target.value);
-    console.log(isValid);
-    if (isValid) getPostCodeData(event.target.value);
+    // console.log(event.target.value);
+
+    const isValid = /^[0-9]{2}-[0-9]{3}$/g.test(event.target.value);
+    // console.log(isValid);
+    if (!isValid) event.target.classList.add("input--invalid");
+    if (isValid) {
+      event.target.classList.remove("input--invalid");
+      getPostCodeData(event.target.value);
+    }
   }
 
   registrationData = {
