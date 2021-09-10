@@ -30,9 +30,14 @@ export const validateInputData = function (event) {
     if (!isValid) event.target.classList.add("input--invalid");
     if (isValid) event.target.classList.remove("input--invalid");
   }
-  if (targetName === "house") {
+  if (targetName === "house" || targetName === "apartment") {
     let isValid = /^[0-9]*$/g.test(event.target.value);
-    isValid = event.target.value === "" ? false : isValid;
+    isValid =
+      event.target.value === ""
+        ? targetName === "house"
+          ? false
+          : true
+        : isValid;
     if (!isValid) event.target.classList.add("input--invalid");
     if (isValid) event.target.classList.remove("input--invalid");
   }
