@@ -27,7 +27,10 @@ form.addEventListener("submit", (event) => {
   console.log(isFormCorrect);
   if (!isFormCorrect)
     alert("form is incorrect. Fill all fields or correct mistakes");
-  if (isFormCorrect) alert(`form is correct`);
+  if (isFormCorrect) {
+    form.reset();
+    alert(`form is correct`);
+  }
 });
 
 form.addEventListener("input", (event) => {
