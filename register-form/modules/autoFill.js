@@ -11,7 +11,7 @@ export const autoFill = function (event, registrationData) {
   event.target.value = addressDataArray[0];
   input.classList.remove("input--invalid");
 
-  city.value = addressDataArray[1];
+  if (addressDataArray[1]) city.value = addressDataArray[1];
   if (addressDataArray[2]) {
     street.value = addressDataArray[2];
     street.dispatchEvent(new Event("change"));
